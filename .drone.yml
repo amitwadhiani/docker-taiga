@@ -1,0 +1,17 @@
+kind: pipeline
+name: default
+
+steps:
+- name: initialize
+  image: alpine/git
+  commands:
+    - git submodule update --init --remote
+
+- name: docker
+  image: plugins/docker
+  settings:
+    repo: amitwadhiani/docker-taiga
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
