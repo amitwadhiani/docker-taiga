@@ -71,7 +71,7 @@ RUN pip install taiga-contrib-slack
 #Contrib plugins on frontend
 WORKDIR /usr/src/taiga-front-dist/dist/plugins/
 RUN svn export "https://github.com/taigaio/taiga-contrib-slack/tags/$(pip show taiga-contrib-slack | awk '/^Version: /{print $2}')/front/dist" "slack"
-
+WORKDIR /usr/src/taiga-back
 
 ### Container configuration
 EXPOSE 80 443
