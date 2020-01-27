@@ -10,6 +10,8 @@
     "privacyPolicyUrl": null,
     "termsOfServiceUrl": null,
     "maxUploadFileSize": null,
-    "contribPlugins": [ ${CONTRIB_PLUGINS_LIST} ],
+    "contribPlugins": [
+        "/plugins/slack/slack.json"
+    ],
     "loginFormType": "${LOGIN_FORM_TYPE}"
 }

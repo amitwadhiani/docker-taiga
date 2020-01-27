@@ -48,6 +48,7 @@ setup_db() {
     python manage.py loaddata initial_user
     python manage.py loaddata initial_project_templates
     python manage.py compilemessages
+    python manage.py migrate taiga_contrib_slack
   fi
 
   echo "Database checks completed."
