@@ -51,6 +51,28 @@ WORKDIR /usr/src/taiga-back
 RUN chmod -R +x /opt/taiga-bin
 RUN ["/opt/taiga-bin/docker-install.sh"]
 
+# Setup symbolic links for configuration files
+RUN mkdir -p /taiga
+COPY conf/taiga/local.py /taiga/local.py
+COPY conf/taiga/conf.json /taiga/conf.json
+RUN ln -s /taiga/local.py /usr/src/taiga-back/settings/local.py
+RUN ln -s /taiga/conf.json /usr/src/taiga-front-dist/dist/conf.json
+
+WORKDIR /usr/src/taiga-back
+
+# specify LANG to ensure python installs locals properly
+# fixes benhutchins/docker-taiga-example#4
+# ref benhutchins/docker-taiga#15
+ENV LANG C
+
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install taiga-contrib-slack
+
+#Contrib plugins on frontend
+WORKDIR /usr/src/taiga-front-dist/dist/plugins/
+RUN svn export "https://github.com/taigaio/taiga-contrib-slack/tags/$(pip show taiga-contrib-slack | awk '/^Version: /{print $2}')/front/dist" "slack"
+
+
 ### Container configuration
 EXPOSE 80 443
 VOLUME /usr/src/taiga-back/media
