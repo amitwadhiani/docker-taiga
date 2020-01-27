@@ -52,6 +52,6 @@ services:
       POSTGRES_USER: postgres
     ports:
       - 5432
-    volumes:
+    #volumes:
       # this helps prevent your postgres data from deleted
-      - ./pgdata:/var/lib/postgresql/data
+     # - ./pgdata:/var/lib/postgresql/data
